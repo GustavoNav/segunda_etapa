@@ -5,7 +5,7 @@ class Extractor:
 
     def extract(self, path: str) -> pd.DataFrame:
         try:
-            raw_data = pd.read_csv(path, index_col=0)
+            raw_data = pd.read_csv(path)
         except Exception as exception:
             raise ExtractError(str(exception))
         

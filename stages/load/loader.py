@@ -1,10 +1,13 @@
-import pandas as pd
 import os
+import pymongo
+
+import pandas as pd
 
 from errors.load_error import LoadError
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Table, MetaData
+from sqlalchemy.dialects.postgresql import insert
 
 
 class Loader:
@@ -27,8 +30,18 @@ class Loader:
         try:
             connection_string = f'postgresql://{self.pg_username}:{self.pg_password}@{self.pg_host}:{self.pg_port}/{self.pg_database}'
             engine = create_engine(connection_string)
+            metadata = MetaData()
 
-            data.to_sql('clientes', con=engine, if_exists='append', index=False)
+            vendas_table = Table('vendas', metadata, autoload_with=engine)
+
+            data_dict = data.to_dict(orient='records')
+
+            with engine.connect() as conn:
+                with conn.begin():
+                    for record in data_dict:
+                        stmt = insert(vendas_table).values(record)
+                        stmt = stmt.on_conflict_do_nothing(index_elements=['id_venda'])
+                        conn.execute(stmt)
 
         except Exception as exception:
             raise LoadError(str(exception))
@@ -43,12 +56,17 @@ class Loader:
             
             client = MongoClient(mongo_uri)
             db = client[self.mongo_database]
+            collection = db["vendas"]
 
             data_dict = data.to_dict(orient='records')
 
-            collection = db["clientes"]
-            collection.insert_many(data_dict)
-
+            for record in data_dict:
+                record["_id"] = record.pop("id_venda")
+                try:
+                    collection.insert_one(record)
+                except pymongo.errors.DuplicateKeyError:
+                    pass
+            
             client.close()
 
         except Exception as exception:
