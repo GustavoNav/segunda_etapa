@@ -28,6 +28,16 @@ Por fim todas as classes são instanciadas no arquivo 'main.py' e executadas em 
 
 ### Como executar
 
+Clone o repositório
+```bash
+git clone https://github.com/GustavoNav/segunda_etapa.git
+```
+Acesse o diretório:
+
+```
+cd segunda_etapa
+```
+
 #### Configurando o ambiente
 1 - **Acesse o diretório da Pipeline**
 ```bash
@@ -38,13 +48,13 @@ cd parte_01
 
 - Linux
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 - Windows
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 .venv\Scripts\activate
 ```
 
