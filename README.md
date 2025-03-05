@@ -29,32 +29,31 @@ Por fim todas as classes são instanciadas no arquivo 'main.py' e executadas em 
 ### Como executar
 
 #### Configurando o ambiente
-Acesse o diretório da Pipeline
+1 - **Acesse o diretório da Pipeline**
 ```bash
 cd parte_01
 ```
 
-Crie um ambiente virtual e o ative
+2 - **Crie um ambiente virtual e o ative**
 
-Linux
+- Linux
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-Windows
+- Windows
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-instale as dependências
+3 - **Instale as dependências**
 ```
 pip install -r requirements.txt
 ```
 
-#### Executar com Banco de Dados local
-Adicione, na raiz de parte_01, um arquivo nomeado .env e configure as variáveis de ambiente para os bancos de dados PostgreSQL e MongoDB, conforme suas configurações. Exemplo:
+4 - **Adicione, na raiz de parte_01, um arquivo nomeado .env e configure as variáveis de ambiente para os bancos de dados PostgreSQL e MongoDB, conforme suas configurações. Exemplo:**
 
 ```
 DB_USER=postgres
@@ -66,7 +65,7 @@ DB_NAME=segunda_etapa_pg
 MONGO_DB=segunda_etapa_mg
 ```
 
-No seu banco de dados PostgreSQL, crie a tabela de vendas:
+5 - **No seu banco de dados PostgreSQL, crie a tabela de vendas:**
 
 ```SQL
 CREATE TABLE vendas (
@@ -81,7 +80,7 @@ CREATE TABLE vendas (
 ```
 
 
-Uma vez configurado, basta rodar o arquivo main.py dentro do diretório parte_01:
+6 - **Uma vez configurado, basta rodar o arquivo main.py dentro do diretório parte_01:**
 ```bash
 python3 main.py
 ```
@@ -90,6 +89,65 @@ Caso tudo tenha sido configurado corretamente, os dados serão extraídos, trans
 
 #### Executar com Banco de Dados docker
 
+Para executar diretamente com Docker, siga os passos abaixo.
+
+1. **Inicializando os Containers Docker**
+
+   Execute o comando abaixo para subir os containers do PostgreSQL e MongoDB:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+    Isso irá criar e rodar os containers definidos no `docker-compose.yml`.
+
+2. **Acessar o PostgreSQL no Docker**
+
+    Para acessar o PostgreSQL, execute, substituindo o `DB_USER` e `DB_NAME`:
+
+    ```bash
+    docker exec -it postgres psql -U ${DB_USER} -d ${DB_NAME}
+    ```
+
+3. **Conectar-se ao banco de dados PostgreSQL**
+
+    Depois de acessar o container do PostgreSQL, conecte-se ao banco de dados:
+
+    ```bash
+    \c segunda_etapa
+    ```
+
+4. **Exibir os dados da tabela `vendas`**
+
+    Para exibir os dados da tabela `vendas`, execute:
+
+    ```bash
+    SELECT * FROM vendas;
+    ```
+
+5. **Acessar o MongoDB no Docker**
+
+    Para acessar o MongoDB, execute o comando abaixo:
+
+    ```bash
+    docker exec -it mongo mongosh
+    ```
+
+6. **Conectar-se ao banco de dados MongoDB**
+
+    Após acessar o MongoDB, use o comando abaixo para se conectar ao banco de dados:
+
+    ```bash
+    use segunda_etapa
+    ```
+
+7. **Exibir os dados da coleção `vendas` no MongoDB**
+
+    Para exibir os dados da coleção `vendas`:
+
+    ```bash
+    db.vendas.find()
+    ```
 
 ## Parte 2: Modelagem e Querying em Bancos de Dados
 
