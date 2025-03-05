@@ -75,9 +75,13 @@ DB_NAME=segunda_etapa_pg
 MONGO_DB=segunda_etapa_mg
 ```
 
-5 - **No seu banco de dados PostgreSQL, crie a tabela de vendas:**
+5 - **No seu banco de dados PostgreSQL, crie o Banco de dados 'segunda_etapa', se conecte e crie a tabela de vendas:**
 
 ```SQL
+CREATE DATABASE segunda_etapa;
+
+\c segunda_etapa;
+
 CREATE TABLE vendas (
     id_venda INT PRIMARY KEY,
     data_venda DATE,
@@ -137,10 +141,10 @@ Para executar diretamente com Docker, siga os passos abaixo.
 
 5. **Acessar o MongoDB no Docker**
 
-    Para acessar o MongoDB, execute o comando abaixo:
+    Para acessar o MongoDB, execute o comando abaixo, substituindo 'MONGO_USER' e 'MONGO_PASS':
 
     ```bash
-    docker exec -it mongo mongosh
+    docker exec -it mongo mongosh -u <MONGO_USER> -p <MONGO_PASS> --authenticationDatabase admin
     ```
 
 6. **Conectar-se ao banco de dados MongoDB**
