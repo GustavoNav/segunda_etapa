@@ -1,8 +1,12 @@
 import pandas as pd
+from errors.extract_error import ExtractError
 
 class Extractor:
 
-    def extract(self, path: str):
-        raw_data = pd.read_csv(path, index_col=0)
-
+    def extract(self, path: str) -> pd.DataFrame:
+        try:
+            raw_data = pd.read_csv(path, index_col=0)
+        except Exception as exception:
+            raise ExtractError(str(exception))
+        
         return raw_data
