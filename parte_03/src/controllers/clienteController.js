@@ -1,4 +1,4 @@
-import Cliente from '../models/cliente.js';
+import Cliente from '../models/clientePg.js';
 
 const getClientes = async (req, res) => {
   try {

@@ -1,9 +1,9 @@
-import Pedido from '../models/pedido.js';
+import Pedido from '../models/pedidoMg.js';
 
 const getPedido = async (req, res) => {
     try{
         const id = req.params.id;
-        const pedido = await Pedido.findByPk(id);
+        const pedido = await Pedido.findById(id).populate('id_cliente')
 
         if (!pedido){
             return res.status(404).json({error: 'Pedido não encontrado'});

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database.js';
+import { sequelize } from '../config/database.js';
 
-const Pedido = sequelize.define('Pedido', {
+const PedidoPg = sequelize.define('Pedido', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -24,4 +24,4 @@ const Pedido = sequelize.define('Pedido', {
     }
 });
 
-export default Pedido;
+export default PedidoPg;

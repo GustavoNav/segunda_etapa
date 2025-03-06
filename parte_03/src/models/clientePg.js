@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database.js';
+import { sequelize } from '../config/database.js';
 
-const Cliente = sequelize.define('Cliente', {
+const ClientePg = sequelize.define('Cliente', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -18,4 +18,4 @@ const Cliente = sequelize.define('Cliente', {
   },
 });
 
-export default Cliente;
+export default ClientePg;
