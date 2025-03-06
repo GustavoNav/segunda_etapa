@@ -184,10 +184,10 @@ A parte_02 foi divídido em 2 diretórios, cada um com suas respectiva solução
 #### PostgreSQL
 1. Escreva uma query SQL para recuperar os 5 clientes que mais gastaram em pedidos.
 ```SQL
-SELECT c.nome, SUM(p.total) AS total_gasto
+SELECT c.id, c.nome, SUM(p.total) AS total_gasto
 FROM clientes c
 INNER JOIN pedidos p ON (c.id = p.cliente_id)
-GROUP BY c.nome
+GROUP BY c.id, c.nome
 ORDER BY total_gasto DESC
 LIMIT 5;
 ```

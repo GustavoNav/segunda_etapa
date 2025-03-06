@@ -1,8 +1,8 @@
 -- Escreva uma query SQL para recuperar os 5 clientes que mais gastaram em pedidos.
-SELECT c.nome, SUM(p.total) AS total_gasto
+SELECT c.id, c.nome, SUM(p.total) AS total_gasto
 FROM clientes c
 INNER JOIN pedidos p ON (c.id = p.cliente_id)
-GROUP BY c.nome
+GROUP BY c.id, c.nome
 ORDER BY total_gasto DESC
 LIMIT 5;
 
@@ -13,5 +13,3 @@ SELECT TO_CHAR(DATE_TRUNC('month', data_pedido), 'TMMonth') AS mês,
 FROM pedidos
 GROUP BY DATE_TRUNC('month', data_pedido)
 ORDER BY DATE_TRUNC('month', data_pedido);
-
-
