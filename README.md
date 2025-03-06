@@ -18,6 +18,8 @@ Este repositório contém a solução para o desafio de desenvolvimento, dividid
 
 - Docker: 28.0
 
+- Node: 18.19.1
+
 Certifique-se de utilizar versões compatíveis para evitar problemas de execução.
 
 ## Parte 1: Manipulação de Dados com Python
@@ -40,16 +42,6 @@ Por fim todas as classes são instanciadas no arquivo 'main.py' e executadas em 
 
 ### Como executar
 
-Clone o repositório
-```bash
-git clone https://github.com/GustavoNav/segunda_etapa.git
-```
-Acesse o diretório:
-
-```
-cd segunda_etapa
-```
-
 #### Configurando o ambiente
 1 - **Acesse o diretório da Pipeline**
 ```bash
@@ -71,7 +63,7 @@ python3 -m venv .venv
 ```
 
 3 - **Instale as dependências**
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -132,7 +124,7 @@ Para executar diretamente com Docker, siga os passos abaixo.
     Para acessar o PostgreSQL, execute, substituindo o `DB_USER` e `DB_NAME`:
 
     ```bash
-    docker exec -it postgres psql -U ${DB_USER} -d ${DB_NAME}
+    docker exec -it postgres psql -U DB_USER -d DB_NAME
     ```
 
 3. **Conectar-se ao banco de dados PostgreSQL**
@@ -238,3 +230,61 @@ db.pedidos.aggregate([
 ```
 
 ## Parte 3: Integração de Dados com Node.js
+Essa parte tem como objetivo criar uma API em Node.js utilizando Express, com **Sequelise** e **Mongoose**
+O projeto seguiu uma arquitetura simples de API:
+- src: Possuis o código fonte
+- config: Configurações do Banco de Dados e Mock
+- Controllers: Lógica das rotas
+- models: Modelos de dados para PostgreSQL e MongoDB
+- routes: Define as rotas REST
+
+O código permite que o usuário acesse as rotas e faça requisições
+- GET `clientes/` Retornar a lista de clientes armazenados no PostgreSQL
+- GET `pedidos/:id` Retorna o pedido relacionado ao id armazenado no MongoDB
+
+Por padrão, os dados das tabelas e collections sempre são recriados ao executar a rota, para facilitar os testes.
+
+### Como Executar
+
+1 - **Entre no diretório da API**
+```bash
+cd parte_03
+```
+
+2 - **Instale as dependências**
+```bash
+npm install
+```
+
+3 - **Adicione, na raiz de parte_03, um arquivo nomeado .env e configure as variáveis de ambiente para os bancos de dados PostgreSQL e MongoDB, conforme suas configurações. Exemplo:**
+
+```
+DB_USER=postgres
+DB_PASS=senhaForte321
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=segunda_etapa_pg
+
+MONGO_DB=segunda_etapa_mg
+MONGO_HOST=localhost
+MONGO_PORT=27017
+
+```
+
+4 - **No seu banco de dados PostgreSQL, crie o Banco de dados que vai utilizar, o mesmo que usou em '.env' conforme o exemplo:**
+
+```SQL
+CREATE DATABASE segunda_etapa_pg;
+```
+
+5 - **Uma vez configurado, basta rodar o arquivo app.js dentro do diretório parte_01:**
+```bash
+node app.js
+```
+
+Caso tenha sido tudo configurado corretamente, a api vai funcionar. Para testar pode utilizar o Postman para realizar requisições, como nas imagens de exemplo:
+
+![alt text](images/exemplo1.png)
+![alt text](images/exemplo2.png)
+
+O id do pedido é gerado automaticamente pelo mongoDB, então para testar acesse o mongoDB e visualize um dos pedidos de exemplo na coleção 'pedidos'
