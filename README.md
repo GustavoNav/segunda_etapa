@@ -8,6 +8,18 @@ Este repositório contém a solução para o desafio de desenvolvimento, dividid
 2. [Parte 2: Modelagem e Querying em Bancos de Dados](#parte-2-modelagem-e-querying-em-bancos-de-dados)
 3. [Parte 3: Integração de Dados com Node.js](#parte-3-integração-de-dados-com-nodejs)
 
+### Para garantir a reprodutibilidade do projeto, utilizei as seguintes versões:
+
+- Python: 3.12.3
+
+- PostgreSQL: 16.8
+
+- MongoDB: 8.0.5
+
+- Docker: 28.0
+
+Certifique-se de utilizar versões compatíveis para evitar problemas de execução.
+
 ## Parte 1: Manipulação de Dados com Python
 
 ### Resumo
