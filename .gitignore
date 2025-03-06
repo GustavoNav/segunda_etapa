@@ -1,6 +1,12 @@
 # Python cache
 __pycache__/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+package-lock.json
+
 # Arquivos de Ambiente
 .venv/
 .vscode/
@@ -8,3 +14,4 @@ __pycache__/
 
 # Arquivos de log
 *.log
+
